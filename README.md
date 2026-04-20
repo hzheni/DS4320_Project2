@@ -35,12 +35,25 @@ Patients and healthcare providers alike are motivated by the shared objective of
 ## Domain Exposition
 ### Terminology
 
+| Term | Definition |
+|------|------------|
+| Readmission | The event of a patient being admitted to the hospital again within a certain time frame after being discharged. |
+| 30-day readmission | A specific type of readmission that occurs within 30 days of hospital discharge, primarily driven by the CMS Hospital Readmissions Reduction Program (HRRP) |
+| Risk Standardized Readmission Rate (RSRR) | A metric used to evaluate hospital performance based on the rate of readmissions, adjusted for patient risk factors. |
+| Clinical factors | Medical conditions, treatments, or health indicators that may influence a patient's health outcomes. |
+| Discharge | The process of a patient leaving the hospital after receiving care. |
+| Predictive model | A statistical or machine learning model that is used to predict an outcome based on input data. |
+| Binary classification | A type of predictive modeling where the outcome variable has two possible classes, such as "readmitted" or "not readmitted". |
 
+### Domain Explanation
+This project lives in the domain of healthcare and data science. It focuses on using patient hospital stay data to predict the risk of hospital readmission, which uses data science techniques to analyze a healthcare problem. On the healthcare side, hospital readmissions are a significant concern for both patients and healthcare providers, as they can lead to increased costs, resource strain, and negative health outcomes. On the data science side, this project involves building predictive models using clinical and demographic data to identify patterns and factors that contribute to readmission risk. The intersection of these two domains allows us to apply data driven approaches to healthcare challenges. 
 
-
+### Background Readings 
+[Link to OneDrive folder of PDFs](https-------EDIT THIS!)
 
 ### Background Readings Table
 
+EDIT BELOW ONEDRIVE LINKS!
 | Title | Description | Direct Link | Link to File in Folder |
 |-------|-------------|-------------|------------------------|
 | CMS.gov Hospital Readmissions Reduction Program | Directly from the Centers for Medicare and Medicaid Services, it explains the federal Hospital Readmissions Reduction Program (HRRP), which penalizes hospitals for excessive 30-day readmission rates and establishes readmission as a key quality-of-care metric in the U.S. healthcare system. | [CMS.gov Hospital Readmissions Reduction Program](https://www.cms.gov/medicare/quality/value-based-programs/hospital-readmissions) | [CMS.gov Hospital Readmissions Reduction Program](https://github.com/hzheni/DS4320_Project2/blob/main/Background%20Readings/CMS.gov%20Hospital%20Readmissions%20Reduction%20Program.pdf) |
