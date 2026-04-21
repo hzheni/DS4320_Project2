@@ -83,3 +83,62 @@ For sampling bias, the analysis should explicitly acknowledge that findings only
 
 ### Rationale for Critical Decisions
 When creating the dataset and preparing the data for the document model, there were several critical decisions related to data selection, transformation, and organization that could introduce or mitigate uncertainty. The decision to filter out patients readmitted after 30 days (the ">30" category) was a judgment call that reduces uncertainty by creating a clean binary classification problem aligned with the clinical benchmark of 30-day readmission. But this may introduce uncertainty by excluding a meaningful group of patients who were readmitted after 30-day window, potentially losing signal about later readmissions that may share similar risk factors. Next, each document was decided to be modeled as an encounter rather than a patient, due to the specific question of predicting whether a patient will be readmitted within 30 days of hospital discharge. There were also decisions made about which features to include in the documents. Several columns, such as weight, were dropped due to a high number of missing values. Columns that may lead to data leakage (discharge_disposition_id, admission_source_id) were also dropped to mitigate the risk of the model learning from information that would not be available at the time of prediction. Overall, being transparent about these decisions and their potential impacts on the analysis helps to contextualize the results and manage uncertainty effectively.
+
+## Metadata
+
+### Implicit Schema
+The diabetes hospital readmission dataset is structured where each document represents exactly one hospital admission (encounter) for a diabetic patient. The schema follows an implicit structure where related attributes are logically grouped. Core patient and encounter attributes such as demographic information (race, gender, age) and hospital utilization metrics (time in hospital, number of procedures, medications, and visits) are stored as top-level fields for efficient querying. Clinical information such as diagnoses and medications are stored as arrays to accommodate varying lengths across encounters. Categorical identifiers (e.g., admission type, discharge disposition, and admission source) are stored as descriptive text rather than numeric codes to improve interpretability. This approach allows for a consistent organization of data across documents while accommodating the variability in clinical records, such as differing numbers of diagnoses or medications across encounters. The schema is designed to balance the need for structured fields and key attributes, while maintaining flexibility inherent to the document model.
+
+### Data Summary
+| Property | Value |
+|:---|:---|
+| Database Name | `diabetes_readmission` |
+| Collection Name | `encounters` |
+| Total Documents | 66,221 |
+| Date Range of Data | 1999-2008 |
+| Document Model Type | Encounter-centric (one document per hospital admission) |
+| Target Variable | `readmitted_30day` (binary: 1 if readmitted within 30 days, 0 if not) |
+| Numerical Features | `time_in_hospital`, `num_lab_procedures`, `num_procedures`, `num_medications`, `number_outpatient`, `number_emergency`, `number_inpatient`, `num_diagnoses` |
+| Categorical Features | `race`, `gender`, `age`, `admission_type_desc`, `discharge_disposition_desc`, `admission_source_desc`, `change`, `diabetesMed` |
+| Array Features | `diagnoses` (array of ICD-9 codes), `medications` (array of diabetes medication names) |
+
+### Data Dictionary
+
+| Name                       | Data Type        | Description                                 | Example              |
+| -------------------------- | ---------------- | ------------------------------------------- | -------------------- |
+| encounter_id               | Integer          | Unique identifier for hospital encounter    | 1               |
+| patient_nbr                | Integer          | Unique identifier for patient               | 8222157              |
+| race                       | String           | Patient race category                       | "Caucasian"          |
+| gender                     | String           | Patient gender                              | "Female"             |
+| age                        | String           | Age range bucket                            | "[0-10)"             |
+| time_in_hospital           | Integer          | Days spent in hospital                      | 1                    |
+| num_lab_procedures         | Integer          | Number of lab tests performed               | 41                   |
+| num_procedures             | Integer          | Number of procedures performed              | 0                    |
+| num_medications            | Integer          | Number of medications prescribed            | 1                    |
+| number_outpatient          | Integer          | Outpatient visits in past year              | 0                    |
+| number_emergency           | Integer          | Emergency visits in past year               | 0                    |
+| number_inpatient           | Integer          | Inpatient visits in past year               | 0                    |
+| num_diagnoses              | Integer          | Total diagnoses recorded                    | 1                    |
+| diagnoses                  | Array of Strings | ICD diagnosis codes                         | [0: "648", 1: "250", 2: "V27"]  |
+| medications                | Array of Strings | Medications administered                    | [0: "glipizide"]     |
+| change                     | String           | Indicates change in medications             | "No"                 |
+| diabetesMed                | String           | Indicates if diabetes medication prescribed | "No"                 |
+| admission_type_desc        | String           | Type of admission                           | "Emergency"          |
+| discharge_disposition_desc | String           | Discharge outcome                           | "Discharged to home" |
+| admission_source_desc      | String           | Source of admission                         | "Physician Referral" |
+| readmitted_30day           | Integer (Binary) | Readmission within 30 days                  | 0                    |
+
+### Data Dictionary Uncertainty Quantification
+
+| Feature | Measurement Precision | Missing Rate | Uncertainty Source | Uncertainty Quantification |
+|:---|:---|:---|:---|:---|
+| `time_in_hospital` | ±0.5 days (recorded as integer days) | 0% | Discrete rounding; actual stay may include partial days. | ±0.5 days per measurement |
+| `num_lab_procedures` | ±1 procedure (count data) | 0% | Potential under-counting if labs performed at outside facilities | ±2 procedures |
+| `num_procedures` | ±1 procedure (count data) | 0% | Procedure coding varies by hospital; some procedures may be bundled. Right-skewed as <br> many patients have few procedures | ±1 procedure |
+| `num_medications` | ±1 medication (count data) | 0% | Medications may be inconsistently recorded; only diabetes medications captured in array | ±2 medications |
+| `number_outpatient` | ±1 visit (count data) | 0% | Relies on complete capture within Cerner network; visits to outside facilities missing | ±3 visits (high uncertainty) |
+| `number_emergency` | ±1 visit (count data) | 0% | Same limitation as outpatient; ER visits at non-Cerner hospitals not recorded | ±2 visits |
+| `number_inpatient` | ±1 admission (count data) | 0% | Prior admissions to non-Cerner hospitals are not captured in the data | ±1 admission |
+| `num_diagnoses` | ±0 (derived from `diagnoses` array) | 0% | Original data limited to 3 diagnosis codes; actual diagnoses may be more | Under-counting of 2-5 additional diagnoses |
+| `num_medications_taken` | ±0 (derived from `medications` array) | 0% | Only diabetes-related medications captured; other medications excluded | Systematic under-counting of non-diabetes medications |
+| `patient_nbr` | N/A (identifier) | 0% | No uncertainty; serves as linkage key only, not a predictive feature | N/A |
