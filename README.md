@@ -13,7 +13,7 @@ This project focuses on predicting whether a patient will be readmitted within 3
 | NetID | dkh8my |
 | DOI | [![DOI_fill innnnn](fill innnnnn) |
 | Press Release | [Turning Hospital Data Into Fewer Return Visits for Patients](https://github.com/hzheni/DS4320_Project2/blob/main/Press_Release.md) |
-| Pipeline | [Problem Solution Pipeline Code](Problem_Solution_Pipeline.ipynb) <br> [Problem Solution Pipeline Markdown](Problem_Solution_Pipeline.md) |
+| Pipeline | [Data Acquisition](load_and_prepare_data.ipynb) <br> [Problem Solution Pipeline Code](Problem_Solution_Pipeline.ipynb) <br> [Problem Solution Pipeline Markdown](Problem_Solution_Pipeline.md) |
 | License | [MIT LICENSE](./LICENSE) |
 
 ---
