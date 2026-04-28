@@ -615,7 +615,7 @@ logging.info("Plotted ROC curves and feature importance for model comparison")
 
 
     
-![png](Problem_Solution_Pipeline_files/Problem_Solution_Pipeline_14_0.png)
+![png](Images/Problem_Solution_Pipeline_files/Problem_Solution_Pipeline_14_0.png)
     
 
 
