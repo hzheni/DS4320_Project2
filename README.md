@@ -66,9 +66,7 @@ This project lives in the domain of healthcare and data science. It focuses on u
 The main dataset used for this project is the "Diabetes 130-US Hospitals for Years 1999-2008" dataset, representing 10 years of clinical care at 130 US hospitals and integrated delivery networks. This is a publicly available and de-identified dataset containing hospital records of patients diagnosed with diabetes, who underwent laboratory and had medications. For this project, the data was downloaded in CSV format from the UC Irvine Machine Learning Repository. The downloaded dataset contained two files: "diabetic_data.csv" which contains the main patient data, and "IDS_mapping.csv" which contains mappings for IDs used in the main dataset. The data was preprocessed and transformed to unstructured format before being loaded into MongoDB.
 
 Edit these links to actual link
-[Link to California Fire Perimeters (all)](https://data.ca.gov/dataset/california-fire-perimeters-all)
-
-[Link to CAL FIRE Administrative Units](https://data.ca.gov/dataset/cal-fire-administrative-units)
+[Link: Diabetes 130-US Hospitals for Years 1999-2008](https://archive.ics.uci.edu/dataset/296/diabetes+130-us+hospitals+for+years+1999-2008)
 
 ### Code
 | File Name              | Description           | Link           |
