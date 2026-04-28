@@ -39,7 +39,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 ```python
 # In terminal, set the environment variable for MongoDB URI 
 
-# export MONGO_URI="mongodb+srv://____REPLACEWITHUSERNAME____:____REPLACEWITHPASSWORD____@cluster0.qsd6tm1.mongodb.net/?retryWrites=true&w=majority"
+# export MONGO_URI="mongodb+srv://____REPLACEWITHUSERNAME____:____REPLACEWITHPASSWORD____@cluster0.____REPLACEWITHCLUSTER____.mongodb.net/?retryWrites=true&w=majority"
 # export MONGO_URI="__YOUR_MONGO_URI_HERE__"
 ```
 
@@ -609,11 +609,13 @@ ax[1].set_title('Top 20 Feature Importances from Random Forest')
 ax[1].invert_yaxis()
 plt.tight_layout()
 plt.show()
+
+logging.info("Plotted ROC curves and feature importance for model comparison")
 ```
 
 
     
-![png](Images/Problem_Solution_Pipeline_files/Problem_Solution_Pipeline_14_0.png)
+![png](Problem_Solution_Pipeline_files/Problem_Solution_Pipeline_14_0.png)
     
 
 
