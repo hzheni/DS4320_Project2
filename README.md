@@ -1,8 +1,8 @@
-# DS4320_Project2: xxx
+# DS4320_Project2: Predicting 30-Day Hostpital Readmission for Diabetes Patients Using Clinical and Demographic Features
 
 ### Executive Summary
 
-xxx
+This project focuses on predicting whether a patient will be readmitted within 30 days of hospital discharge using clinical and demographic factors. The repository contains steps to prepare encounter-level documents and load them into a MongoDB database through data acquisition and preprocessing code. It also includes the full predictive modeling pipeline that develops and compares two classification models (logistic regression and a tuned random forest), with performance metrics and visualizations. Additional files, such as a press release and supplemental reading materials, are included to provide context for the analysis. This project aims to provide insights into the factors that contribute to hospital readmission risk, helping inform targeted interventions to reduce preventable readmissions and improve patient outcomes.
 
 ---
 # Project Details
